@@ -29,8 +29,12 @@
             <%= date_field_tag :end_date, params.has_key?(:end_date) ? params[:end_date] : Date.today %>
           </div>
           <div class="col-lg-6" style="height: 40px; padding-top: 13px;">
-            Show only users with contributions? 
+            Only show users with contributions? 
             <%= check_box_tag :activeUsers, "1", checked = params.has_key?(:activeUsers) %>
+          </div>
+          <div class="col-lg-6" style="height: 40px; padding-top: 13px;">
+            Only show subscribed users?
+            <%= check_box_tag :subscribedUsers, "1", checked = params.has_key?(:subscribedUsers) %>
           </div>
           <div class="clear"></div>
         </div>
@@ -56,7 +60,7 @@
             <td><%= link_to u.name, user_path(u)%></td>
             <td><%= u.email? ? u.email : "" %></td>
             <td><%= u.created_at.strftime("%b %d, %Y")%></td>
-            <td><%= u.last_login.strftime("%b %d, %Y")%></td>
+            <td><%= u.current_sign_in_at.strftime("%b %d, %Y") unless u.current_sign_in_at.nil?%></td>
             <td>P: <%=u.projects.count%>
               | V: <%=u.visualizations.count%>
               | D: <%=u.data_sets.count%>
@@ -69,7 +73,7 @@
               then
                 "Confirmed"
               else
-                link_to 'Confirm', user_path(u), :method => :confirm
+                link_to 'Confirm', user_path(u) + '/confirm', :method => :confirm
               end %>
             </td>
           </tr>

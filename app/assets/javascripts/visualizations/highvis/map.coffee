@@ -30,7 +30,7 @@ $ ->
   if namespace.controller is 'visualizations' and
   namespace.action in ['displayVis', 'embedVis', 'show']
 
-    class window.Map extends BaseVis
+    class window.MapVis extends BaseVis
       constructor: (@canvas) ->
         super(@canvas)
 
@@ -57,7 +57,7 @@ $ ->
       start: ->
         # Validate fields exist
         if @validate_fields(true) is -4
-          window.location = '/'
+          window.location = '/tutorials'
           
         $('#compass').show()
 
@@ -724,6 +724,6 @@ $ ->
         projectPixels: (latlng) ->
           @getProjection().fromLatLngToContainerPixel(latlng)
 
-      globals.map = new Map 'map-canvas'
+      globals.map = new MapVis 'map-canvas'
     else
       globals.map = new DisabledVis 'map-canvas'

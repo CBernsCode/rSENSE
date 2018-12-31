@@ -92,6 +92,21 @@ class ApplicationController < ActionController::Base
     render '/home/create_issue'
   end
 
+  def report_content
+    @prev_url = params[:prev_url]
+
+    # This condition should never be true but it will be left in in case of failure
+    if current_user.nil?
+      @current_user_id = -1
+      @current_user_email = '<form submitted without login>'
+    else
+      @current_user_id = current_user.id
+      @current_user_email = current_user.email
+    end
+
+    render '/home/report_content_form'
+  end
+
   def find_user
     @namespace = { action: params[:action], controller: params[:controller], id: params[:id] }
     @version = ENV['RSENSE_VERSION']
@@ -204,9 +219,9 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:name, :email, :password, :password_confirmation, :remember_me, :bio, :admin) }
+    devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:name, :email, :password, :password_confirmation, :remember_me, :bio, :admin, :subscribed) }
     devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:login, :name, :email, :password, :remember_me) }
-    devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:name, :email, :password, :password_confirmation, :current_password, :bio, :admin) }
+    devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:name, :email, :password, :password_confirmation, :current_password, :bio, :admin, :subscribed) }
   end
 end
 

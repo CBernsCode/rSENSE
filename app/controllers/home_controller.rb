@@ -6,7 +6,6 @@ class HomeController < ApplicationController
     @featured_projects = Project.search(false).where('featured = ? and hidden = ?',  true, false).order('featured_at DESC').limit(4)
     @featured_vis = Visualization.where('featured = ? and hidden = ?', true, false).order('featured_at DESC').first
     @curated_projects = Project.search(false).where('curated = ? AND hidden = ?', true, false).order('updated_at DESC').limit(4)
-
     @box_project_front_page = true
   end
 
@@ -23,5 +22,17 @@ class HomeController < ApplicationController
   end
 
   def privacy_policy
+  end
+
+  def report_content_submit
+    UserMailer.report_content_email(params).deliver
+    redirect_to '/report_content_success'
+  rescue Net::SMTPFatalError
+    @reason = 'Failed to send email.'
+    return
+  end
+
+  def report_content_success
+    render 'report_content_success'
   end
 end

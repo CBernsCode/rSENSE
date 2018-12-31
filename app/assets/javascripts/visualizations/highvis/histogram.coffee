@@ -43,7 +43,7 @@ $ ->
       start: ->
         # Validate fields exist
         if @validate_fields(true) is -4
-          window.location = '/'
+          window.location = '/tutorials'
           
         @configs.displayField = Math.min globals.configs.fieldSelection...
         @configs.binSize ?= @defaultBinSize()
@@ -200,7 +200,7 @@ $ ->
             x = Math.round(i / @configs.binSize) * @configs.binSize
             unless binMesh[x]?
               binMesh[x] = []
-            binMesh[x].push i
+            binMesh[x].unshift i
             x
 
           binObjs[groupIndex] = {}

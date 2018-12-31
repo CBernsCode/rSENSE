@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+
+  <body>
+    <h1>REPORT OF INAPPROPRIATE CONTENT ON ISENSE</h1>
+
+    <h3>User ID and email of reporter:</h3>
+    <p>
+      <%= @current_user_id %> — <%= @current_user_email %>
+    </p>
+
+    <h3>Reported URL:</h3>
+    <p>
+      <%= @prev_url %>
+    </p>
+
+    <h3>Additional Comment: </h3>
+    <p>
+      <%= @content %>
+    </p>
+
+    <p><i>Have a nice day!</i></p>
+  </body>
+
+</html>

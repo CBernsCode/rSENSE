@@ -156,9 +156,7 @@ $ ->
             func = eval('globals.' + filter.op)(filter.value, filter.field)
         dp = dp.filter (a) ->
           # Timestamps can do textual or numerical comparisons
-          if typeof a[filter.field] is 'string' \
-          or (filter.op is 'gt') or (filter.op is 'lt') \
-          or (filter.op is 'ge') or (filter.op is 'le')
+          if typeof a[filter.field] is 'string' or (filter.op in ['eq','ne','gt','lt','ge','le'])
             # Numerical
             func(a)
           else
@@ -467,14 +465,6 @@ $ ->
     data.makeGroups = (gIndex) ->
       result = {}
 
-      # If group by number fields, get the number fields
-      if gIndex == data.NUMBER_FIELDS_FIELD
-        groups = []
-        for f in data.normalFields
-          if data.fields[f].fieldID != -1
-            groups.push(data.fields[f].fieldName)
-      else
-
       if gIndex == data.TIME_PERIOD_FIELD #and globals.configs.isPeriod
         timestampIndex = data.timeFields[0]
         groups = []
@@ -488,12 +478,18 @@ $ ->
             period = globals.getCurrentPeriod(new Date(timestamp))
             point[data.TIME_PERIOD_FIELD] = period
 
-      for dp in @dataPoints
-        if dp[gIndex] isnt null
-          result[String(dp[gIndex])] = true
-
-      groups = for keys of result
-        keys
+      # If group by number fields, get the number fields
+      if gIndex == data.NUMBER_FIELDS_FIELD
+        groups = []
+        for f in data.normalFields
+          if data.fields[f].fieldID != -1
+            groups.push(data.fields[f].fieldName)
+      else
+        for dp in @dataPoints
+          if dp[gIndex] isnt null
+            result[String(dp[gIndex])] = true
+        groups = for keys of result
+          keys
 
       groups.sort()
 
