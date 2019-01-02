@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 gem 'puma'
-gem 'rails', '~> 4.1.4'
+gem 'rails', '~> 4.2'
 
 gem 'pg'
 
@@ -94,7 +94,9 @@ gem 'recaptcha', git: 'https://github.com/ambethia/recaptcha'
 gem 'rack-cors', :require => 'rack/cors'
 
 # for formula fields
-gem 'beaker', '~> 1.3.0', git: 'https://github.com/isenseDev/beaker-lang'
+
+gem 'beaker', '~> 1.3.0', git: 'https://github.com/CBernsCode/beaker-lang.git'
+# gem 'beaker', '~> 1.3.0',:path => './'
 
 # User System
 gem 'devise'

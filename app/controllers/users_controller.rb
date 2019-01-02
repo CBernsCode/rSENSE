@@ -242,7 +242,7 @@ class UsersController < ApplicationController
         if can_delete?(p)
           p.destroy
         else
-          # switch ownership to admin if this project contains data sets
+          #  ownership to admin if this project contains data sets
           # not by the user we are deleting
           p.user_id = 1
           p.save

@@ -9,9 +9,9 @@ Recaptcha.configure do |config|
     file.close
   end
 
-  config.public_key  = IO.readlines(key_file)[0]
+  config.site_key  = IO.readlines(key_file)[0]
 
-  config.private_key = IO.readlines(key_file)[1]
+  config.secret_key = IO.readlines(key_file)[1]
 
-  config.api_version = 'v2'
+  config.api_server_url = 'v2'
 end

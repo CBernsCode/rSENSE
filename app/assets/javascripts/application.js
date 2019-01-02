@@ -28,7 +28,7 @@
 //= require jquery.caret.js
 //= require jquery.form.js
 //= require jquery.qrcode.min.js
-//= require jquery-ui/sortable
+//= require jquery-ui/widgets/sortable
 //= require jquery.ui.touch-punch
 //= require titlebar.js.coffee
 //= require bootstrap
